@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Edit";
+﻿
+@{
+    ViewBag.Title = "Projekt bearbeiten";
 }
 
 <div class="container">
@@ -7,19 +8,25 @@
         <div class="col">
             <a href="/Projekt/Index">Zurück</a>
         </div>
-        <div class="col ">
-            <button class="btn btn-primary float-end">Speichern</button>
-        </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <input class="form-control" type="text" value="Projektname" />
-            <textarea class="form-control">Kommentar</textarea>
-            <input type="checkbox" id="finishedProject" />
-            <label for="#finishedProject">Projekt als beendet markieren</label>
-        </div>
-        <div class="col">
-            <h5>Analysen</h5>
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <h2>@ViewBag.Title</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="projectName" class="form-label">Projektname</label>
+                    <input class="form-control" type="text" value="Projektname" id="projectName" />
+                </div>
+                <div class="mb-3">
+                    <label for="projectName" class="form-label" for="comment">Projektname</label>
+                    <textarea class="form-control" placeholder="Kommentar" id="comment"></textarea>
+                </div>
+                <div class="mb-3">
+                    <input type="checkbox" id="finishedProject" />
+                    <label for="projectName" class="form-label" for="finishedProject">Projekt als beendet markieren</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Speichern</button>
+            </form>
         </div>
     </div>
 </div>

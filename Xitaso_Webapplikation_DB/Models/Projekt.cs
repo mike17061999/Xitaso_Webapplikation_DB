@@ -11,12 +11,12 @@ namespace Xitaso_Webapplikation.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string ProjectDescription { get; set; }
+        public string name { get; set; }
+        public string projectDescription { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public bool ProjectFinished { get; set; }
-        
+        public List<Analyse> analysis { get; set; }
 
 
     }

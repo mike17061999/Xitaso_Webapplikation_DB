@@ -9,12 +9,12 @@ namespace Xitaso_Webapplikation.ViewModels
 {
     public class ProjektDashboardViewModel
     {
-        public List<Projekt> Projects { get; set; }
+        public List<Projekt> projects { get; set; }
 
         //public List<Analyse> Analysis { get; set; }
         public ProjektDashboardViewModel(List<Projekt> _projects)
         {
-            Projects = _projects;
+            projects = _projects;
         }
 
 

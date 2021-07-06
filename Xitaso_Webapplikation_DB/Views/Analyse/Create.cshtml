@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Projekt anlegen";
+    ViewBag.Title = "Analyse anlegen";
 }
 <div class="container">
     <div class="row">
@@ -9,17 +9,16 @@
         </div>
     </div>
     <div class="row justify-content-center">
-
         <div class="col-5">
             <h2>@ViewBag.Title</h2>
             <form>
                 <div class="mb-3">
-                    <label for="projectName" class="form-label">Projektname</label>
-                    <input type="text" class="form-control w-100" id="projectName" />
+                    <label for="analysisName" class="form-label">Analysenname</label>
+                    <input type="text" class="form-control" id="analysisName" />
                 </div>
                 <div class="mb-3">
-                    <label for="comment">Projekt-Kommentar</label>
-                    <textarea class="form-control w-100" id="comment" rows="5"></textarea>
+                    <label for="comment">Analysen-Kommentar</label>
+                    <textarea class="form-control" id="comment" rows="5"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Speichern</button>
@@ -28,4 +27,3 @@
         </div>
     </div>
 </div>
-

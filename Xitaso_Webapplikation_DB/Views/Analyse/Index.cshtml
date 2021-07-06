@@ -1,0 +1,377 @@
+﻿@model Xitaso_Webapplikation.Models.Analyse
+@{
+    ViewBag.Title = "Analyse";
+    Dictionary<string, List<String>> questions_dict = new Dictionary<string, List<String>>();
+
+    //Fragen-Dictionary
+    List<string> valSetOne = new List<string>();
+    valSetOne.Add("Frage 1");
+    valSetOne.Add("Frage 2");
+
+    questions_dict.Add("Erwartungskonformität", valSetOne);
+    questions_dict.Add("Indivdualisierbarkeit", valSetOne);
+    questions_dict.Add("Fehlertoleranz", valSetOne);
+    questions_dict.Add("Aufgabenangemessenheit", valSetOne);
+    questions_dict.Add("Steuerbarkeit", valSetOne);
+
+    //Projekt-Dictionary
+    Dictionary<string, List<String>> project_dict = new Dictionary<string, List<String>>();
+
+    List<string> valSetTwo = new List<string>();
+    valSetTwo.Add("Apple");
+    valSetTwo.Add("Aeroplane");
+
+    project_dict.Add("Projekt 1", valSetTwo);
+    project_dict.Add("Projekt 2", valSetTwo);
+    project_dict.Add("Projekt 3", valSetTwo);
+    project_dict.Add("Projekt 4", valSetTwo);
+    project_dict.Add("Projekt 5", valSetTwo);
+
+
+    /////////////////
+    //Diagram Daten//
+    /////////////////
+
+    Dictionary<string, double> istData = new Dictionary<string, double>();
+    Dictionary<string, double> sollData = new Dictionary<string, double>();
+
+    for (int i = 0; i < Model.analysekategories.Count(); i++)
+    {
+        string categoryName = Model.analysekategories[i].name;
+        List<int> istValuesList = new List<int>();
+        List<int> sollValuesList = new List<int>();
+
+        //Loop für Ist-Bewertung
+        for (int j = 0; j < Model.analysekategories[i].questions.Count(); j++)
+        {
+            istValuesList.Add(Model.analysekategories[i].questions[j].istBewertung);
+        }
+
+        //Loop für Soll-Bewertung
+        for (int j = 0; j < Model.analysekategories[i].questions.Count(); j++)
+        {
+            sollValuesList.Add(Model.analysekategories[i].questions[j].SollBewertung);
+        }
+
+        double istMean = istValuesList.Average();
+        double sollMean = sollValuesList.Average();
+
+        istData.Add(categoryName, istMean);
+        sollData.Add(categoryName, sollMean);
+
+    }
+}
+<div>
+    @foreach (KeyValuePair<string, double> entry in istData)
+    {
+        <a href="#">@entry.Key </a><br />
+        <a href="#">@entry.Value </a><br />
+    }
+</div>
+<div>
+    @foreach (KeyValuePair<string, double> entry in sollData)
+    {
+        <a href="#">@entry.Key </a><br />
+        <a href="#">@entry.Value </a><br />
+    }
+</div>
+<!--Erste Zeile-->
+<form action="/Analyse/Post" method="post">
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-outline-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#leaveModal">Zurück</button>
+            <button class="btn btn-primary m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">Menü</button>
+        </div>
+        <div class="col pe-0">
+            <button type="submit" class="btn btn-primary mt-3 mb-3 float-end">Speichern</button>
+        </div>
+    </div>
+    <div class="row">
+
+        <!--linke Spalte-->
+        <div class="col-7">
+            <!--Überschrift-->
+            <div class="row">
+                <!--Platzhalter-->
+                <div class="col">
+
+                </div>
+                <div class="col-3 content-justify-center">
+                    <h4><b>IST</b></h4>
+                </div>
+                <div class="col-3 content-justify-center">
+                    <h4><b>SOLL</b></h4>
+                </div>
+                <!--Platzhalter-->
+                <div class="col-1">
+
+                </div>
+            </div>
+            @for (int i = 0; i < Model.analysekategories.Count(); i++)
+            {
+                <div class="row mt-5">
+                    <div class="col">
+                        <h4>
+                            <b>
+                                @Html.HiddenFor(m => m.analysekategories[i].Id)
+                                @Html.TextBoxFor(m => m.analysekategories[i].name, new { @class = "questionField", @style = "font-weight:bold;" })
+                            </b>
+                        </h4>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn mt-2 mb-2">-</button>
+                    </div>
+                </div>
+                for (int j = 0; j < Model.analysekategories[i].questions.Count(); j++)
+                {
+
+
+                    <div class="row mt-2 mb-2">
+                        <div class="col">
+                            @Html.HiddenFor(m => m.analysekategories[i].questions[j].Id)
+                            @Html.TextAreaFor(m => m.analysekategories[i].questions[j].name, new { @class = "questionField", @rows = "3" })
+                        </div>
+
+                        <div class="col-3">
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].istBewertung, 1, new { @class = "btn-check" })
+                                <label class="btn btn-outline-primary ist" for="btnradio1">1</label>
+
+                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].istBewertung, 2, new { @class = "btn-check" })
+                                <label class="btn btn-outline-primary ist" for="btnradio2">2</label>
+
+                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].istBewertung, 3, new { @class = "btn-check" })
+                                <label class="btn btn-outline-primary ist" for="btnradio3">3</label>
+
+                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].istBewertung, 4, new { @class = "btn-check" })
+                                <label class="btn btn-outline-primary ist" for="btnradio4">4</label>
+
+                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].istBewertung, 5, new { @class = "btn-check" })
+                                <label class="btn btn-outline-primary ist" for="btnradio5">5</label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].SollBewertung, 1, new { @class = "btn-check" })
+                                <label class="btn btn-outline-primary soll" for="btnradio1">1</label>
+
+                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].SollBewertung, 2, new { @class = "btn-check" })
+                                <label class="btn btn-outline-primary soll" for="btnradio2">2</label>
+
+                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].SollBewertung, 3, new { @class = "btn-check" })
+                                <label class="btn btn-outline-primary soll" for="btnradio3">3</label>
+
+                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].SollBewertung, 4, new { @class = "btn-check" })
+                                <label class="btn btn-outline-primary soll" for="btnradio4">4</label>
+
+                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].SollBewertung, 5, new { @class = "btn-check" })
+                                <label class="btn btn-outline-primary soll" for="btnradio5">5</label>
+                            </div>
+                        </div>
+                        <div class="col-1 mt-2 mb-2">
+                            <button type="button" class="btn">-</button>
+                        </div>
+                    </div>
+                }
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#questionModal">Neue Frage hinzufügen</button>
+                </div>
+
+            }
+            <div class="d-grid gap-2 mt-4">
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#categoryModal">Neue Kategorie hinzufügen</button>
+            </div>
+        </div>
+
+        <!--rechte Spalte-->
+        <div class="col-5">
+            <div class="row">
+                <textarea placeholder="Kommentar" style="min-width: 100%" rows="5" id="comment" name="comment">@Model.comment</textarea>
+            </div>
+            <div class="row">
+                <!--RadarChart Container-->
+                <div class="radarChart"></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-primary float-end">PDF</button>
+                    <button type="button" class="btn btn-primary float-end me-2">Freigeben</button>
+                </div>
+            </div>
+        </div>
+
+        <!--Hidden Form Fields für das Model-->
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.name)
+        @Html.HiddenFor(m => m.lastChanged)
+
+        @*
+            @using (Html.BeginForm("Post", "Analyse"))
+            {
+                <div class="form-group">
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.name)
+                    @Html.HiddenFor(m => m.comment)
+                    @Html.HiddenFor(m => m.lastChanged)
+
+                    @for (int i = 0; i < Model.analysekategories.Count(); i++)
+                    {
+                        @Html.HiddenFor(m => m.analysekategories[i].Id)
+                        @Html.HiddenFor(m => m.analysekategories[i].name)
+
+                        for (int j = 0; j < Model.analysekategories[i].questions.Count(); j++)
+                        {
+                            @Html.HiddenFor(m => m.analysekategories[i].questions[j].Id)
+                            @Html.HiddenFor(m => m.analysekategories[i].questions[j].name)
+                            @Html.HiddenFor(m => m.analysekategories[i].questions[j].istBewertung)
+                            @Html.HiddenFor(m => m.analysekategories[i].questions[j].SollBewertung)
+                        }
+                    }
+
+                </div>
+
+            }*@
+        <!--<button type="submit" class="btn btn-primary">save</button>-->
+</form>
+
+<!--Offcanvas Menu-->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">Offcanvas with backdrop</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        @foreach (KeyValuePair<string, List<string>> entry in project_dict)
+        {
+            <a href="#">@entry.Key </a><br />
+        }
+    </div>
+</div>
+
+<!-- Modal für Erstellung neuer Fragen-->
+<div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="questionModalLabel">Neue Frage erstellen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="newQuestion" class="form-label">Frage</label>
+                        <input type="text" class="form-control" id="newQuestion" aria-describedby="questionHelp">
+                        <div id="questionHelp" class="form-text">Fragen sind die einzelnen Elemente zur Bewertung der UX.</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                <button type="button" class="btn btn-primary">Speichern</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal für Erstellung neuer Kategorien-->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="categoryModalLabel">Neue Kategorie erstellen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="newCategory" class="form-label">Kategorie</label>
+                        <input type="text" class="form-control" id="newCategory" aria-describedby="categoryHelp">
+                        <div id="categroyHelp" class="form-text">Kategorien sind die Überpunkte bei der Durchführung der Analyse.</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                <button type="button" class="btn btn-primary">Speichern</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Warnung vor verlassen-->
+<div class="modal fade" id="leaveModal" tabindex="-1" aria-labelledby="leaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="leaveModalLabel">Sind Sie sicher?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><b>Sind Sie sicher, dass Sie die Analyse verlassen wollen?</b></p>
+                <p><i>Alle nicht gespeicherten Daten gehen dabei verloren.</i></p>
+            </div>
+            <div class="modal-footer">
+                <a href="/Projekt/Index" class="btn btn-secondary">Trotzdem verlassen</a>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Zurück zur Analyse</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+<script src="/Scripts/RadarChart.js"></script>
+<script>/* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+
+    //////////////////////////////////////////////////////////////
+    //////////////////////// Set-Up //////////////////////////////
+    //////////////////////////////////////////////////////////////
+
+    var margin = { top: 100, right: 100, bottom: 100, left: 100 },
+        width = Math.min(500, window.innerWidth - 10) - margin.left - margin.right,
+        height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+
+    //////////////////////////////////////////////////////////////
+    ////////////////////////// Data //////////////////////////////
+    //////////////////////////////////////////////////////////////
+
+    var data = [
+        [
+            { axis: "@Model.analysekategories[0].name", value: 5 },
+            { axis: "Individualisierbarkeit", value: 2 },
+            { axis: "Fehlertoleranz", value: 3 },
+            { axis: "Aufgabenangemessenheit", value: 4 },
+            { axis: "Selbstbeschreibungsfähigkeit", value: 1 },
+            { axis: "Steuerbarkeit", value: 4 },
+            { axis: "Lernförderlichkeit", value: 5 },
+        ],
+        [
+            { axis: "Erwartungskonformität", value: 3 },
+            { axis: "Individualisierbarkeit", value: 2 },
+            { axis: "Fehlertoleranz", value: 4 },
+            { axis: "Aufgabenangemessenheit", value: 5 },
+            { axis: "Selbstbeschreibungsfähigkeit", value: 2 },
+            { axis: "Steuerbarkeit", value: 2 },
+            { axis: "Lernförderlichkeit", value: 4 },
+        ],
+    ];
+
+    //////////////////////////////////////////////////////////////
+    //////////////////// Draw the Chart //////////////////////////
+    //////////////////////////////////////////////////////////////
+
+    var color = d3.scale.ordinal()
+        .range(["#EDC951", "#CC333F", "#00A0B0"]);
+
+    var radarChartOptions = {
+        w: width,
+        h: height,
+        margin: margin,
+        maxValue: 0.5,
+        levels: 5,
+        roundStrokes: false,
+        color: color
+    };
+    //Call function to draw the Radar chart
+    RadarChart(".radarChart", data, radarChartOptions);</script>

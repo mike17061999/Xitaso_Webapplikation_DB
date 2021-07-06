@@ -69,3 +69,73 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
+/*----------------*/
+/*Custom CSS Below*/
+/*----------------*/
+
+body {
+    padding: 50px;
+}
+
+.active {
+    border: 2px solid black;
+}
+
+.to-show {
+    display: none;
+}
+
+
+.legend {
+    font-family: 'Raleway', sans-serif;
+    fill: #333333;
+}
+
+.tooltip {
+    fill: #333333;
+}
+
+.project-options {
+    visibility: hidden;
+    float: right;
+}
+
+.card:hover .project-options {
+    visibility: visible;
+}
+
+.active .project-options {
+    visibility: visible;
+}
+
+.card:hover {
+    border: 1px solid black;
+}
+
+a {
+    text-decoration: none;
+}
+
+.questionField {
+    min-width: 100%;
+    border: none;
+    height: auto;
+    resize: none;
+}
+
+/*Xitaso-Style übernehmen*/
+.btn-primary {
+    background-color: #7a212e !important;
+    border-color: #7a212e !important;
+}
+
+.btn-outline-primary {
+    color: #7a212e !important;
+    border-color: #7a212e !important;
+}
+
+    .btn-outline-primary:hover {
+        background-color: #7a212e !important;
+    }
