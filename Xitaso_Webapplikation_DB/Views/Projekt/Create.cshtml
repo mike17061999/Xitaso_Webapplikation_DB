@@ -1,0 +1,33 @@
+﻿@model Xitaso_Webapplikation.Models.Projekt  
+@{
+    ViewBag.Title = "Neues Projekt anlegen";
+}
+<form method="post" asp-action="Create">
+    <div class="container">
+        <div class="row">
+            <h2>@ViewBag.Title</h2>
+            <div class="col align-self-center">
+                
+                    <div class="mb-3">
+                        <input asp-for="Name" class="form-control" />
+
+                    </div>
+                    <div class="mb-3">
+                        <input asp-for="ProjectDescription" class="form-control" />
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-8 offset-2 row">
+                            <div class="col">
+                                <input type="submit" class="btn btn-info w-75" value="create" />
+                            </div>
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-outline-info w-75">Back</a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</form>
