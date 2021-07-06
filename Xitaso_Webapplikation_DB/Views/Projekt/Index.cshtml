@@ -53,11 +53,11 @@
                     <div id="@project.Id" class="projectanalysis">
                         @foreach (Xitaso_Webapplikation.Models.Analyse analyse in project.analysis)
                         {
-                            <a class="card mt-2 mb-2 link-dark" href="@Url.Action("Index", "Analyse")">
+                            <a class="card mt-2 mb-2 link-dark" href="@Url.Action("Index", "Analyse", new {id = analyse.Id })">
                                 <div class="card-body" id="@project.Id">
                                     <h5 class="card-title d-inline">@analyse.name</h5>
                                     <i class="bi bi-trash project-options" type="button" data-bs-toggle="modal" data-bs-target="#deleteAnalysisModal" z-index="100"></i>
-                                    <h6 class="card-subtitle mb-2 text-muted">Datum</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">@analyse.lastChanged</h6>
                                     <p class="card-text">Analyse-Kommentar</p>
                                 </div>
                             </a>

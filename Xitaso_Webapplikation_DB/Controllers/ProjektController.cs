@@ -27,9 +27,12 @@ namespace Xitaso_Webapplikation.Controllers
             analyse1.Id = 1;
             analyse1.name = "analyse1";
             analyse1.comment = "Kommentar von Analyse 1";
+            DateTime thisDay = DateTime.Now;
+            analyse1.lastChanged = thisDay;
             analyse2.name = "analyse2";
             analyse2.comment = "Kommentar von Analyse 2";
             analyse3.name = "analyse3";
+
 
             projekt1.Id = 1;
             projekt1.name = "Kunde1";
