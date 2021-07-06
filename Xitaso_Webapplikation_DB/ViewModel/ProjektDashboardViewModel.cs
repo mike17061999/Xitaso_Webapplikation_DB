@@ -22,5 +22,6 @@ namespace Xitaso_Webapplikation.ViewModels
         {
             Analysis = _analysis;
         }
+
     }
 }

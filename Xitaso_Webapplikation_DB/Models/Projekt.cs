@@ -16,8 +16,9 @@ namespace Xitaso_Webapplikation.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public bool ProjectFinished { get; set; }
-        
 
+        public List<Analyse> analysis { get; set; }
+    
 
     }
 }

@@ -1,6 +1,6 @@
 ﻿<!--Projekt-Index Seite / Startseite der App-->
 @*model IEnumerable<Xitaso_Webapplikation.ViewModels.ProjektDashboardViewModel>*@
-@model IEnumerable<Xitaso_Webapplikation.Models.Projekt>
+@model IEnumerable<Xitaso_Webapplikation.ViewModels.ProjektDashboardViewModel>
 
 <!-- model IEnumerable Xitaso_Webapplikation.Models.Anlayse NUR EIN MODEL MÖGLICH!!!-->
 
@@ -14,7 +14,7 @@
         </a>
         <!--Karten für einzelne Projekte-->
         <div class="overflow-auto" style="max-height:90vh;" id="zu hoch">
-            @foreach (Xitaso_Webapplikation.Models.Projekt project in Model)
+            @foreach (Xitaso_Webapplikation.ViewModels.ProjektDashboardViewModel project in Model)
             {
                 <div class="card mt-2 mb-2 projectCard" id="@project.Id">
                     <div class="card-body" id="@project.Id">
