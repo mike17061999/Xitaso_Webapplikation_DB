@@ -73,12 +73,14 @@ namespace Xitaso_Webapplikation.Controllers
             };
             analyse1.name = "testanalyse";
             analyse1.comment = "Dies ist ein Testkommentar";
+            
         }
         #endregion
-        public ActionResult Index()
+        public ActionResult Index(int analyseID)
         {
             if (!created)
             {
+
                 createExampleModels();
                 created = true;
             }
