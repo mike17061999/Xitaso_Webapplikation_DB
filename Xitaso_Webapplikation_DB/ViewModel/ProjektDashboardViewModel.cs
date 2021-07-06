@@ -11,16 +11,16 @@ namespace Xitaso_Webapplikation.ViewModels
     {
         public List<Projekt> Projects { get; set; }
 
-        //public List<Analyse> Analysis { get; set; }
+        public List<Analyse> Analysis { get; set; }
         public ProjektDashboardViewModel(List<Projekt> _projects)
         {
             Projects = _projects;
         }
 
 
-        //public ProjektDashboardViewModel(List<Analyse> _analysis)
-        //{
-        //    Analysis = _analysis;
-        //}
+        public ProjektDashboardViewModel(List<Analyse> _analysis)
+        {
+            Analysis = _analysis;
+        }
     }
 }
