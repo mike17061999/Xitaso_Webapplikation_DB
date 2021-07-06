@@ -21,9 +21,10 @@
     <!--Popper.js for dropdown menu // Benötigt c# syntax um at-Symbol in link zu escapen-->
     <script src="https://unpkg.com/@("@popperjs/core@2")"></script>
 
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/cardHandler.js"></script>
     <script src="~/js/ratingButtonHandler.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
