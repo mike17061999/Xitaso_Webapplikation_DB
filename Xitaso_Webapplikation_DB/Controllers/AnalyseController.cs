@@ -4,12 +4,17 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Xitaso_Webapplikation.Models;
+using Newtonsoft.Json;
+using Xitaso_Webapplikation.ViewModels;
 
 namespace Xitaso_Webapplikation.Controllers
 {
     public class AnalyseController : Controller
     {
         Boolean created = false;
+
+        Dictionary<string, double> istData = new Dictionary<string, double>();
+        Dictionary<string, double> sollData = new Dictionary<string, double>();
 
         public Analysekategorie analysekategorie1 = new Analysekategorie();
         public Analysekategorie analysekategorie2 = new Analysekategorie();
@@ -43,6 +48,22 @@ namespace Xitaso_Webapplikation.Controllers
             frage5.Id = 5;
             frage6.Id = 6;
             frage7.Id = 7;
+
+            frage1.SollBewertung = 2;
+            frage2.SollBewertung = 3;
+            frage3.SollBewertung = 4;
+            frage4.SollBewertung = 5;
+            frage5.SollBewertung = 4;
+            frage6.SollBewertung = 3;
+            frage7.SollBewertung = 2;
+
+            frage1.istBewertung = 1;
+            frage2.istBewertung = 5;
+            frage3.istBewertung = 4;
+            frage4.istBewertung = 5;
+            frage5.istBewertung = 2;
+            frage6.istBewertung = 1;
+            frage7.istBewertung = 3;
 
             analysekategorie1.name = "Name von Analysekategorie 1";
             analysekategorie2.name = "Name von Analysekategorie 2";
@@ -82,8 +103,17 @@ namespace Xitaso_Webapplikation.Controllers
                 createExampleModels();
                 created = true;
             }
+            
+            diagramData();
+            string jsonIst = JsonConvert.SerializeObject(istData, Formatting.Indented);
+            string jsonSoll = JsonConvert.SerializeObject(sollData, Formatting.Indented);
 
-            return View(analyse1);
+
+            Console.WriteLine(jsonIst);
+            Console.WriteLine(jsonSoll);
+
+            return View(new AnalyseViewModel(istData, sollData, analyse1, jsonIst, jsonSoll));
+
         }
         public ActionResult Create()
         {
@@ -98,5 +128,43 @@ namespace Xitaso_Webapplikation.Controllers
             return RedirectToAction("Index", "Analyse");
         }
 
+
+        /////////////////
+        //Diagram Daten//
+        /////////////////
+
+        public void diagramData()
+        { 
+            Dictionary<string, double> istDataJSON = new Dictionary<string, double>();
+            Dictionary<string, double> sollDataJSON = new Dictionary<string, double>();
+
+            for (int i = 0; i < analyse1.analysekategories.Count(); i++)
+            {
+                string categoryName = analyse1.analysekategories[i].name;
+                List<int> istValuesList = new List<int>();
+                List<int> sollValuesList = new List<int>();
+
+                //Loop für Ist-Bewertung
+                for (int j = 0; j < analyse1.analysekategories[i].questions.Count(); j++)
+                {
+                    istValuesList.Add(analyse1.analysekategories[i].questions[j].istBewertung);
+                }
+
+                //Loop für Soll-Bewertung
+                for (int j = 0; j < analyse1.analysekategories[i].questions.Count(); j++)
+                {
+                    sollValuesList.Add(analyse1.analysekategories[i].questions[j].SollBewertung);
+                }
+
+                double istMean = istValuesList.Average();
+                double sollMean = sollValuesList.Average();
+
+                istData.Add(categoryName, istMean);
+                sollData.Add(categoryName, sollMean);
+
+            }
+
+        }
     }
+   
 }

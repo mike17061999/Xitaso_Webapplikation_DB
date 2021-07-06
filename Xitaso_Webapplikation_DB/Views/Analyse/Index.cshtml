@@ -1,5 +1,8 @@
-﻿@model Xitaso_Webapplikation.Models.Analyse
+﻿@model Xitaso_Webapplikation.ViewModels.AnalyseViewModel
+
 @{
+
+
     ViewBag.Title = "Analyse";
     Dictionary<string, List<String>> questions_dict = new Dictionary<string, List<String>>();
 
@@ -27,49 +30,18 @@
     project_dict.Add("Projekt 4", valSetTwo);
     project_dict.Add("Projekt 5", valSetTwo);
 
+    string jsonTest = Model.jsonIst;
 
-    /////////////////
-    //Diagram Daten//
-    /////////////////
-
-    Dictionary<string, double> istData = new Dictionary<string, double>();
-    Dictionary<string, double> sollData = new Dictionary<string, double>();
-
-    for (int i = 0; i < Model.analysekategories.Count(); i++)
-    {
-        string categoryName = Model.analysekategories[i].name;
-        List<int> istValuesList = new List<int>();
-        List<int> sollValuesList = new List<int>();
-
-        //Loop für Ist-Bewertung
-        for (int j = 0; j < Model.analysekategories[i].questions.Count(); j++)
-        {
-            istValuesList.Add(Model.analysekategories[i].questions[j].istBewertung);
-        }
-
-        //Loop für Soll-Bewertung
-        for (int j = 0; j < Model.analysekategories[i].questions.Count(); j++)
-        {
-            sollValuesList.Add(Model.analysekategories[i].questions[j].SollBewertung);
-        }
-
-        double istMean = istValuesList.Average();
-        double sollMean = sollValuesList.Average();
-
-        istData.Add(categoryName, istMean);
-        sollData.Add(categoryName, sollMean);
-
-    }
 }
 <div>
-    @foreach (KeyValuePair<string, double> entry in istData)
+    @foreach (KeyValuePair<string, double> entry in Model.istData)
     {
         <a href="#">@entry.Key </a><br />
         <a href="#">@entry.Value </a><br />
     }
 </div>
 <div>
-    @foreach (KeyValuePair<string, double> entry in sollData)
+    @foreach (KeyValuePair<string, double> entry in Model.sollData)
     {
         <a href="#">@entry.Key </a><br />
         <a href="#">@entry.Value </a><br />
@@ -107,14 +79,14 @@
 
                 </div>
             </div>
-            @for (int i = 0; i < Model.analysekategories.Count(); i++)
+            @for (int i = 0; i < Model.analyse1.analysekategories.Count(); i++)
             {
                 <div class="row mt-5">
                     <div class="col">
                         <h4>
                             <b>
-                                @Html.HiddenFor(m => m.analysekategories[i].Id)
-                                @Html.TextBoxFor(m => m.analysekategories[i].name, new { @class = "questionField", @style = "font-weight:bold;" })
+                                @Html.HiddenFor(m => m.analyse1.analysekategories[i].Id)
+                                @Html.TextBoxFor(m => m.analyse1.analysekategories[i].name, new { @class = "questionField", @style = "font-weight:bold;" })
                             </b>
                         </h4>
                     </div>
@@ -122,49 +94,49 @@
                         <button type="button" class="btn mt-2 mb-2">-</button>
                     </div>
                 </div>
-                for (int j = 0; j < Model.analysekategories[i].questions.Count(); j++)
+                for (int j = 0; j < Model.analyse1.analysekategories[i].questions.Count(); j++)
                 {
 
 
                     <div class="row mt-2 mb-2">
                         <div class="col">
-                            @Html.HiddenFor(m => m.analysekategories[i].questions[j].Id)
-                            @Html.TextAreaFor(m => m.analysekategories[i].questions[j].name, new { @class = "questionField", @rows = "3" })
+                            @Html.HiddenFor(m => m.analyse1.analysekategories[i].questions[j].Id)
+                            @Html.TextAreaFor(m => m.analyse1.analysekategories[i].questions[j].name, new { @class = "questionField", @rows = "3" })
                         </div>
 
                         <div class="col-3">
                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].istBewertung, 1, new { @class = "btn-check" })
+                                @Html.RadioButtonFor(m => m.analyse1.analysekategories[i].questions[j].istBewertung, 1, new { @class = "btn-check" })
                                 <label class="btn btn-outline-primary ist" for="btnradio1">1</label>
 
-                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].istBewertung, 2, new { @class = "btn-check" })
+                                @Html.RadioButtonFor(m => m.analyse1.analysekategories[i].questions[j].istBewertung, 2, new { @class = "btn-check" })
                                 <label class="btn btn-outline-primary ist" for="btnradio2">2</label>
 
-                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].istBewertung, 3, new { @class = "btn-check" })
+                                @Html.RadioButtonFor(m => m.analyse1.analysekategories[i].questions[j].istBewertung, 3, new { @class = "btn-check" })
                                 <label class="btn btn-outline-primary ist" for="btnradio3">3</label>
 
-                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].istBewertung, 4, new { @class = "btn-check" })
+                                @Html.RadioButtonFor(m => m.analyse1.analysekategories[i].questions[j].istBewertung, 4, new { @class = "btn-check" })
                                 <label class="btn btn-outline-primary ist" for="btnradio4">4</label>
 
-                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].istBewertung, 5, new { @class = "btn-check" })
+                                @Html.RadioButtonFor(m => m.analyse1.analysekategories[i].questions[j].istBewertung, 5, new { @class = "btn-check" })
                                 <label class="btn btn-outline-primary ist" for="btnradio5">5</label>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].SollBewertung, 1, new { @class = "btn-check" })
+                                @Html.RadioButtonFor(m => m.analyse1.analysekategories[i].questions[j].SollBewertung, 1, new { @class = "btn-check" })
                                 <label class="btn btn-outline-primary soll" for="btnradio1">1</label>
 
-                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].SollBewertung, 2, new { @class = "btn-check" })
+                                @Html.RadioButtonFor(m => m.analyse1.analysekategories[i].questions[j].SollBewertung, 2, new { @class = "btn-check" })
                                 <label class="btn btn-outline-primary soll" for="btnradio2">2</label>
 
-                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].SollBewertung, 3, new { @class = "btn-check" })
+                                @Html.RadioButtonFor(m => m.analyse1.analysekategories[i].questions[j].SollBewertung, 3, new { @class = "btn-check" })
                                 <label class="btn btn-outline-primary soll" for="btnradio3">3</label>
 
-                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].SollBewertung, 4, new { @class = "btn-check" })
+                                @Html.RadioButtonFor(m => m.analyse1.analysekategories[i].questions[j].SollBewertung, 4, new { @class = "btn-check" })
                                 <label class="btn btn-outline-primary soll" for="btnradio4">4</label>
 
-                                @Html.RadioButtonFor(m => m.analysekategories[i].questions[j].SollBewertung, 5, new { @class = "btn-check" })
+                                @Html.RadioButtonFor(m => m.analyse1.analysekategories[i].questions[j].SollBewertung, 5, new { @class = "btn-check" })
                                 <label class="btn btn-outline-primary soll" for="btnradio5">5</label>
                             </div>
                         </div>
@@ -186,7 +158,7 @@
         <!--rechte Spalte-->
         <div class="col-5">
             <div class="row">
-                <textarea placeholder="Kommentar" style="min-width: 100%" rows="5" id="comment" name="comment">@Model.comment</textarea>
+                <textarea placeholder="Kommentar" style="min-width: 100%" rows="5" id="comment" name="comment">@Model.analyse1.comment</textarea>
             </div>
             <div class="row">
                 <!--RadarChart Container-->
@@ -201,9 +173,9 @@
         </div>
 
         <!--Hidden Form Fields für das Model-->
-        @Html.HiddenFor(m => m.Id)
-        @Html.HiddenFor(m => m.name)
-        @Html.HiddenFor(m => m.lastChanged)
+        @Html.HiddenFor(m => m.analyse1.Id)
+        @Html.HiddenFor(m => m.analyse1.name)
+        @Html.HiddenFor(m => m.analyse1.lastChanged)
 
         @*
             @using (Html.BeginForm("Post", "Analyse"))
@@ -318,7 +290,6 @@
     </div>
 </div>
 
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 
 <script src="~/js/RadarChart.js"></script>
@@ -336,35 +307,47 @@
     ////////////////////////// Data //////////////////////////////
     //////////////////////////////////////////////////////////////
 
+
+    var jsIst = JSON.parse(@Html.Raw(Json.Serialize(@Model.jsonIst)));
+    var jsSoll = JSON.parse(@Html.Raw(Json.Serialize(@Model.jsonSoll)));
+
+    const istList = [];
+    const sollList = [];
+
+    for (var [key, value] of Object.entries(jsIst)) {
+        istList.push(
+            {
+                axis: key,
+                value: value
+            }
+        )
+    }
+    for (var [key, value] of Object.entries(jsSoll)) {
+        sollList.push(
+            {
+                axis: key,
+                value: value
+            }
+        )
+    }
+
+    console.log(istList);
+
+    console.log(sollList);
+
     var data = [
-        [
-            { axis: "@Model.analysekategories[0].name", value: 5 },
-            { axis: "Individualisierbarkeit", value: 2 },
-            { axis: "Fehlertoleranz", value: 3 },
-            { axis: "Aufgabenangemessenheit", value: 4 },
-            { axis: "Selbstbeschreibungsfähigkeit", value: 1 },
-            { axis: "Steuerbarkeit", value: 4 },
-            { axis: "Lernförderlichkeit", value: 5 },
-        ],
-        [
-            { axis: "Erwartungskonformität", value: 3 },
-            { axis: "Individualisierbarkeit", value: 2 },
-            { axis: "Fehlertoleranz", value: 4 },
-            { axis: "Aufgabenangemessenheit", value: 5 },
-            { axis: "Selbstbeschreibungsfähigkeit", value: 2 },
-            { axis: "Steuerbarkeit", value: 2 },
-            { axis: "Lernförderlichkeit", value: 4 },
-        ],
+        istList,
+        sollList,
     ];
 
-    //////////////////////////////////////////////////////////////
-    //////////////////// Draw the Chart //////////////////////////
-    //////////////////////////////////////////////////////////////
+                //////////////////////////////////////////////////////////////
+                //////////////////// Draw the Chart //////////////////////////
+                //////////////////////////////////////////////////////////////
 
-    var color = d3.scale.ordinal()
-        .range(["#EDC951", "#CC333F", "#00A0B0"]);
+                var color = d3.scale.ordinal()
+                    .range(["#EDC951", "#CC333F", "#00A0B0"]);
 
-    var radarChartOptions = {
+                var radarChartOptions = {
         w: width,
         h: height,
         margin: margin,
@@ -373,5 +356,5 @@
         roundStrokes: false,
         color: color
     };
-    //Call function to draw the Radar chart
-    RadarChart(".radarChart", data, radarChartOptions);</script>
+            //Call function to draw the Radar chart
+            RadarChart(".radarChart", data, radarChartOptions);</script>
