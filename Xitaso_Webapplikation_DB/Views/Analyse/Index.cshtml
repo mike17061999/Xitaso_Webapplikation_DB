@@ -32,21 +32,11 @@
 
     string jsonTest = Model.jsonIst;
 
+
+
+
 }
-<div>
-    @foreach (KeyValuePair<string, double> entry in Model.istData)
-    {
-        <a href="#">@entry.Key </a><br />
-        <a href="#">@entry.Value </a><br />
-    }
-</div>
-<div>
-    @foreach (KeyValuePair<string, double> entry in Model.sollData)
-    {
-        <a href="#">@entry.Key </a><br />
-        <a href="#">@entry.Value </a><br />
-    }
-</div>
+
 <!--Erste Zeile-->
 <form action="/Analyse/Post" method="post">
     <div class="row">
@@ -55,7 +45,7 @@
             <button class="btn btn-primary m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">Menü</button>
         </div>
         <div class="col pe-0">
-            <button type="submit" class="btn btn-primary mt-3 mb-3 float-end">Speichern</button>
+            <button type="submit" class="btn btn-primary mt-3 mb-3 float-end" id="saveForm" onclick="setTimeout(myfunctionclick, 100)");">Speichern</button>
         </div>
     </div>
     <div class="row">
@@ -82,7 +72,7 @@
             @Html.HiddenFor(m => m.analyse1.lastChanged)
             @for (int i = 0; i < Model.analyse1.analysekategories.Count(); i++)
             {
-                <div class="row mt-5">
+                <div class="row mt-5 hoverRow">
                     <div class="col">
                         <h4>
                             <b>
@@ -92,14 +82,19 @@
                         </h4>
                     </div>
                     <div class="col-1">
-                        <button type="button" class="btn mt-2 mb-2">-</button>
+                        <div class="dropdown d-inline">
+                            <i class="bi bi-three-dots-vertical category-options" type="button" id="category-dropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu" aria-labelledby="optionsDropdown">
+                                <li><a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deletecategorymodal">Löschen</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 for (int j = 0; j < Model.analyse1.analysekategories[i].questions.Count(); j++)
                 {
 
 
-                    <div class="row mt-2 mb-2">
+                    <div class="row mt-2 mb-2 hoverRow">
                         <div class="col">
                             @Html.HiddenFor(m => m.analyse1.analysekategories[i].questions[j].Id)
                             @Html.TextAreaFor(m => m.analyse1.analysekategories[i].questions[j].name, new { @class = "questionField", @rows = "3" })
@@ -142,7 +137,12 @@
                             </div>
                         </div>
                         <div class="col-1 mt-2 mb-2">
-                            <button type="button" class="btn">-</button>
+                            <div class="dropdown d-inline">
+                                <i class="bi bi-three-dots-vertical question-options" type="button" id="question-dropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                <ul class="dropdown-menu" aria-labelledby="optionsDropdown">
+                                    <li><a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deletequestionmodal">Löschen</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 }
@@ -178,33 +178,6 @@
         @Html.HiddenFor(m => m.analyse1.name)
         @Html.HiddenFor(m => m.analyse1.lastChanged)
 
-        @*
-            @using (Html.BeginForm("Post", "Analyse"))
-            {
-                <div class="form-group">
-                    @Html.HiddenFor(m => m.Id)
-                    @Html.HiddenFor(m => m.name)
-                    @Html.HiddenFor(m => m.comment)
-                    @Html.HiddenFor(m => m.lastChanged)
-
-                    @for (int i = 0; i < Model.analysekategories.Count(); i++)
-                    {
-                        @Html.HiddenFor(m => m.analysekategories[i].Id)
-                        @Html.HiddenFor(m => m.analysekategories[i].name)
-
-                        for (int j = 0; j < Model.analysekategories[i].questions.Count(); j++)
-                        {
-                            @Html.HiddenFor(m => m.analysekategories[i].questions[j].Id)
-                            @Html.HiddenFor(m => m.analysekategories[i].questions[j].name)
-                            @Html.HiddenFor(m => m.analysekategories[i].questions[j].istBewertung)
-                            @Html.HiddenFor(m => m.analysekategories[i].questions[j].SollBewertung)
-                        }
-                    }
-
-                </div>
-
-            }*@
-        <!--<button type="submit" class="btn btn-primary">save</button>-->
 </form>
 
 <!--Offcanvas Menu-->
@@ -291,10 +264,52 @@
     </div>
 </div>
 
+<!-- Modal Löschen Kategorie-->
+<div class="modal fade" id="deletecategorymodal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCategroyModalLabel">Sind Sie sicher?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><b>Sind Sie sicher, dass Sie die Kategorie wirklich löschen wollen?</b></p>
+                <p><i>Alle nicht gespeicherten Daten gehen dabei verloren.</i></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Nein</button>
+                <button type="button" class="btn btn-primary">Ja</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Löschen Frage-->
+<div class="modal fade" id="deletequestionmodal" tabindex="-1" aria-labelledby="deleteQuestionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteQuestionModalLabel">Sind Sie sicher?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><b>Sind Sie sicher, dass Sie die Frage löschen wollen?</b></p>
+                <p><i>Alle nicht gespeicherten Daten gehen dabei verloren.</i></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Nein</button>
+                <button type="button" class="btn btn-primary" >Ja</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 
 <script src="~/js/RadarChart.js"></script>
-<script>/* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+<script>
+
+    /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
 
     //////////////////////////////////////////////////////////////
     //////////////////////// Set-Up //////////////////////////////

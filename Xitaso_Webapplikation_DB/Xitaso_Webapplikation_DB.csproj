@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Analyse\" />
+    <Folder Include="wwwroot\Bilder\" />
   </ItemGroup>
 
 </Project>

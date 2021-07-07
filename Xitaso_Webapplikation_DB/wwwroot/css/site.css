@@ -58,10 +58,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
 .footer {
   position: absolute;
   bottom: 0;
@@ -76,7 +72,9 @@ body {
 /*----------------*/
 
 body {
-    padding: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    padding-left:50px;
 }
 
 .active {
@@ -96,8 +94,8 @@ body {
 .tooltip {
     fill: #333333;
 }
-
-.project-options {
+/*Optionen Kebab anzeigen auf Projekt > Index & Analyse > Index wenn über card gehovert / row gehovert wird*/
+.project-options, .category-options, .question-options {
     visibility: hidden;
     float: right;
 }
@@ -105,6 +103,13 @@ body {
 .card:hover .project-options {
     visibility: visible;
 }
+hoverRow:hover .question-options{
+    visibility:visible;
+}
+.hoverRow:hover .category-options {
+    visibility: visible;
+}
+/*---------------------------------------------------------------------------------------------------------*/
 
 .active .project-options {
     visibility: visible;
@@ -125,6 +130,21 @@ a {
     resize: none;
 }
 
+
+.hoverRow:hover .question-options {
+    visibility: visible;
+}
+
+/*Radio-Buttons richtige Farbe*/
+.btn-check:checked + .ist {
+    background: #EDC951;
+}
+
+.btn-check:checked + .soll {
+    background: #CC333F;
+}
+/*----------------------------*/
+
 /*Xitaso-Style übernehmen*/
 .btn-primary {
     background-color: #7a212e !important;
@@ -135,7 +155,15 @@ a {
     color: #7a212e !important;
     border-color: #7a212e !important;
 }
-
-    .btn-outline-primary:hover {
+.btn-outline-primary:hover {
         background-color: #7a212e !important;
+        color:white !important;
     }
+/*-----------------------*/
+
+.trash-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}

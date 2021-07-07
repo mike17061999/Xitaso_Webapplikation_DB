@@ -128,6 +128,7 @@ namespace Xitaso_Webapplikation.Controllers
             created = true;
             analyse1.name = anlyse.name;
             return RedirectToAction("Index", "Analyse");
+
         }
 
 
