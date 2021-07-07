@@ -73,21 +73,45 @@ namespace Xitaso_Webapplikation_DB.Controllers
         {
             createExampleModels();
             List<Analyse> analysisListTemp = new List<Analyse>();
+            List<Analysekategorie> analysiscategoryListTemp = new List<Analysekategorie>();
+            List<Frage> questionListTemp = new List<Frage>();
+            List<Analysekategorie> analyseskategoriesList = _db.Analysekategorien.ToList();
             List<Analyse> analysesList = _db.Analysen.ToList();
             List<Projekt> projectList = _db.Projekte.ToList();
+            List<Frage> questionList = _db.Fragen.ToList();
             foreach (Projekt project in projectList)
             {
                 foreach (Analyse analyses in analysesList)
                 {
                     if (project.Id == analyses.projectId)
+                    {
+                        foreach (Analysekategorie analysiscategory in analyseskategoriesList)
+                        {
+                            if (analyses.Id == analysiscategory.Id)
+                            {
+                                foreach (Frage question in questionList)
+                                {
+                                    if (analysiscategory.Id == question.analyseKategorieId)
+                                    {
+                                        questionListTemp.Add(question);
+                                    }
+                                }
+                                analysiscategory.questions = questionListTemp;
+                                questionListTemp.Clear();
+                                analysiscategoryListTemp.Add(analysiscategory);
+                            }   
+                        }
+                        analyses.analysekategories = analysiscategoryListTemp;
+                        analysiscategoryListTemp.Clear();
                         analysisListTemp.Add(analyses);
+                    }
                 }
                 project.analysis = analysisListTemp;
-                
+                analysisListTemp.Clear();
             }
             
-            List<Analysekategorie> analyseskategoriesList = _db.Analysekategorien.ToList();
-            List<Frage> questionList = _db.Fragen.ToList();
+            
+            
             return View(new ProjektDashboardViewModel(projectList));
         }
 
