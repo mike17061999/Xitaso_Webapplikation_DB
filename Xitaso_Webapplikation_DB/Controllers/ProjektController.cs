@@ -94,6 +94,8 @@ namespace Xitaso_Webapplikation_DB.Controllers
         // POST-Create
         public IActionResult CreateProject(Projekt obj)
         {
+            DateTime thisDay = DateTime.Today;
+            obj.StartTime = thisDay;
             _db.Projekte.Add(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
