@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Xitaso_Webapplikation_DB.Data;
 
 namespace Xitaso_Webapplikation_DB.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210707184235_addAnalyseToDatabase")]
+    partial class addAnalyseToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +67,7 @@ namespace Xitaso_Webapplikation_DB.Migrations
 
                     b.HasIndex("analyseId");
 
-                    b.ToTable("Analysekategorien");
+                    b.ToTable("Analysekategorie");
                 });
 
             modelBuilder.Entity("Xitaso_Webapplikation_DB.Models.Frage", b =>
@@ -91,7 +93,7 @@ namespace Xitaso_Webapplikation_DB.Migrations
 
                     b.HasIndex("analyseKategorieId");
 
-                    b.ToTable("Fragen");
+                    b.ToTable("Frage");
                 });
 
             modelBuilder.Entity("Xitaso_Webapplikation_DB.Models.Projekt", b =>

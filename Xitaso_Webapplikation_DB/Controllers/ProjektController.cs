@@ -72,8 +72,23 @@ namespace Xitaso_Webapplikation_DB.Controllers
         public IActionResult Index()
         {
             createExampleModels();
-            List<Projekt> objList = _db.Projekte.ToList();
-            return View(new ProjektDashboardViewModel(objList));
+            List<Analyse> analysisListTemp = new List<Analyse>();
+            List<Analyse> analysesList = _db.Analysen.ToList();
+            List<Projekt> projectList = _db.Projekte.ToList();
+            foreach (Projekt project in projectList)
+            {
+                foreach (Analyse analyses in analysesList)
+                {
+                    if (project.Id == analyses.projectId)
+                        analysisListTemp.Add(analyses);
+                }
+                project.analysis = analysisListTemp;
+                
+            }
+            
+            List<Analysekategorie> analyseskategoriesList = _db.Analysekategorien.ToList();
+            List<Frage> questionList = _db.Fragen.ToList();
+            return View(new ProjektDashboardViewModel(projectList));
         }
 
         public IActionResult Edit()

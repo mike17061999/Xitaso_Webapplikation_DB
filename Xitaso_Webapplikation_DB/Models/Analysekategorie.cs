@@ -10,5 +10,6 @@ namespace Xitaso_Webapplikation_DB.Models
         public int Id { get; set; }
         public string name { get; set; }
         public List<Frage> questions { get; set; }
+        public int analyseId { get; set; }
     }
 }

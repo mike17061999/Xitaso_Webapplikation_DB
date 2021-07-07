@@ -12,5 +12,6 @@ namespace Xitaso_Webapplikation_DB.Models
         public string comment { get; set; }
         public DateTime lastChanged { get; set; }
         public List<Analysekategorie> analysekategories { get; set; }
+        public int projectId { get; set; }
     }
 }
