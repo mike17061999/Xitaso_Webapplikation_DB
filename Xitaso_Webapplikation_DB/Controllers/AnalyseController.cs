@@ -101,7 +101,7 @@ namespace Xitaso_Webapplikation_DB.Controllers
         {
             if (!created)
             {
-
+                //_db.projecte.where(x => )
                 createExampleModels();
                 created = true;
             }
