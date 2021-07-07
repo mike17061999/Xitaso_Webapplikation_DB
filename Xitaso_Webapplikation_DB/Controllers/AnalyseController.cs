@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Xitaso_Webapplikation_DB.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -97,6 +98,13 @@ namespace Xitaso_Webapplikation_DB.Controllers
             
         }
         #endregion
+
+        private readonly ApplicationDbContext _db;
+
+        public AnalyseController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
         public ActionResult Index(int analyseID)
         {
             if (!created)
@@ -111,15 +119,16 @@ namespace Xitaso_Webapplikation_DB.Controllers
             string jsonSoll = JsonConvert.SerializeObject(sollData, Formatting.Indented);
 
 
-            Console.WriteLine(jsonIst);
-            Console.WriteLine(jsonSoll);
+            
 
             return View(new AnalyseViewModel(istData, sollData, analyse1, jsonIst, jsonSoll));
 
         }
         public ActionResult Create()
         {
-            return View();
+            List<Projekt> projectList = _db.Projekte.ToList();
+
+            return View(new CreateAnalyseViewModel(projectList));
         }
         [HttpPost]
         public ActionResult Post(Analyse anlyse)
@@ -167,6 +176,19 @@ namespace Xitaso_Webapplikation_DB.Controllers
 
             }
 
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST-Create
+        public IActionResult CreateAnalysis(CreateAnalyseViewModel obj)
+        {
+            Analyse analyse = new Analyse();
+            analyse.name = obj.Analyse.name;
+            analyse.comment = obj.Analyse.comment;
+            analyse.projectId = obj.Analyse.projectId;
+            _db.Analysen.Add(analyse);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
    

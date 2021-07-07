@@ -1,4 +1,4 @@
-﻿
+﻿@model Xitaso_Webapplikation_DB.ViewModels.CreateAnalyseViewModel
 @{
     ViewBag.Title = "Analyse anlegen";
 }
@@ -11,14 +11,24 @@
     <div class="row justify-content-center">
         <div class="col-5">
             <h2>@ViewBag.Title</h2>
-            <form>
+            <form asp-action="CreateProject" asp-controller="Projekt" method="post">
+                <div class="form-group col-md-4">
+                    <label for="projektAuswahl">Projekt</label>
+                    <select id="projektAuswahl" class="form-control">
+                        @for(int i = 0; i < Model.Projekte.Count(); i++)
+                        {
+                        <option asp-for="projectName" value="@Model.Projekte[i].Id">@Model.Projekte[i].name</option>
+                           }
+                            
+                    </select>
+                </div>
                 <div class="mb-3">
                     <label for="analysisName" class="form-label">Analysenname</label>
-                    <input type="text" class="form-control" id="analysisName" />
+                    <input asp-for="Analyse.name" type="text" class="form-control" id="analysisName" />
                 </div>
                 <div class="mb-3">
                     <label for="comment">Analysen-Kommentar</label>
-                    <textarea class="form-control" id="comment" rows="5"></textarea>
+                    <textarea asp-for="Analyse.comment" class="form-control" id="comment" rows="5"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Speichern</button>
