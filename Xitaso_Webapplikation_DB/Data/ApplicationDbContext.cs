@@ -15,10 +15,10 @@ namespace Xitaso_Webapplikation_DB.Data
 
         }
 
-        public DbSet <Projekt> Projekte { get; set; }
+        public DbSet<Projekt> Projekte { get; set; }
+        public DbSet<Analyse> Analysen { get; set; }
+        public DbSet<Analysekategorie> Analysekategorien { get; set; }
+        public DbSet<Frage> Fragen { get; set; }
 
-       // public DbSet<Analyse> Analysen { get; set; }
-
-        
     }
 }
