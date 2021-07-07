@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Xitaso_Webapplikation.Models;
+using Xitaso_Webapplikation_DB.Models;
 
 
-namespace Xitaso_Webapplikation.ViewModels
+namespace Xitaso_Webapplikation_DB.ViewModels
 {
     public class ProjektDashboardViewModel
     {

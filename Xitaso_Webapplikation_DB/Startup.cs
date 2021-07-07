@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xitaso_Webapplikation.Data;
+using Xitaso_Webapplikation_DB.Data;
 
 namespace Xitaso_Webapplikation_DB
 {

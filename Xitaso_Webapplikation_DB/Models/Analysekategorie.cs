@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Xitaso_Webapplikation.Models
+namespace Xitaso_Webapplikation_DB.Models
 {
     public class Analysekategorie
     {

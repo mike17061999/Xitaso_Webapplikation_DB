@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
-using Xitaso_Webapplikation.Models;
+using Xitaso_Webapplikation_DB.Models;
 using Newtonsoft.Json;
-using Xitaso_Webapplikation.ViewModels;
+using Xitaso_Webapplikation_DB.ViewModels;
 
-namespace Xitaso_Webapplikation.Controllers
+namespace Xitaso_Webapplikation_DB.Controllers
 {
     public class AnalyseController : Controller
     {
@@ -101,7 +101,7 @@ namespace Xitaso_Webapplikation.Controllers
         {
             if (!created)
             {
-
+                //_db.projecte.where(x => )
                 createExampleModels();
                 created = true;
             }

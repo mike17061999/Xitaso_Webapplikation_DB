@@ -1,5 +1,5 @@
 ﻿<!--Projekt-Index Seite / Startseite der App-->
-@model Xitaso_Webapplikation.ViewModels.ProjektDashboardViewModel
+@model Xitaso_Webapplikation_DB.ViewModels.ProjektDashboardViewModel
 @{
     ViewBag.Title = "Projekte";
 
@@ -14,7 +14,7 @@
         </a>
         <!--Karten für einzelne Projekte-->
         <div class="overflow-auto" style="max-height:90vh;" id="zu hoch">
-            @foreach (Xitaso_Webapplikation.Models.Projekt project in Model.projects)
+            @foreach (Xitaso_Webapplikation_DB.Models.Projekt project in Model.projects)
             {
                 <div class="card mt-2 mb-2 projectCard" id="@project.Id">
                     <div class="card-body" id="@project.Id">
@@ -48,10 +48,10 @@
         <div class="row">
             <div class="overflow-auto analysen">
                 <!--foreach(string value in project_dict["elmId"])-->
-                @foreach (Xitaso_Webapplikation.Models.Projekt project in Model.projects)
+                @*@foreach (Xitaso_Webapplikation_DB.Models.Projekt project in Model.projects)
                 {
                     <div id="@project.Id" class="projectanalysis">
-                        @foreach (Xitaso_Webapplikation.Models.Analyse analyse in project.analysis)
+                        @foreach (Xitaso_Webapplikation_DB.Models.Analyse analyse in project.analysis)
                         {
                         <div class="card mt-2 mb-2">
                             <a href="@Url.Action("Index", "Analyse", new {id = analyse.Id })" class="link-dark">
@@ -65,7 +65,7 @@
                         </div>
                         }
                     </div>
-                }
+                }*@
             </div>
         </div>
     </div>

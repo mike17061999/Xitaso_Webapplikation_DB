@@ -1,4 +1,4 @@
-﻿
+﻿@model Xitaso_Webapplikation_DB.Models.Projekt
 @{
     ViewBag.Title = "Projekt anlegen";
 }
@@ -12,14 +12,14 @@
 
         <div class="col-5">
             <h2>@ViewBag.Title</h2>
-            <form>
+            <form asp-action="CreateProject" asp-controller="Projekt" method="post">
                 <div class="mb-3">
                     <label for="projectName" class="form-label">Projektname</label>
-                    <input type="text" class="form-control w-100" id="projectName" />
+                    <input asp-for="name" class="form-control w-100"/>
                 </div>
                 <div class="mb-3">
                     <label for="comment">Projekt-Kommentar</label>
-                    <textarea class="form-control w-100" id="comment" rows="5"></textarea>
+                    <textarea class="form-control w-100" asp-for="projectDescription" rows="5"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Speichern</button>

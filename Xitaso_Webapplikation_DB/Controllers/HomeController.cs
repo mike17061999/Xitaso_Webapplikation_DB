@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Xitaso_Webapplikation.Controllers
+namespace Xitaso_Webapplikation_DB.Controllers
 {
     public class HomeController : Controller
     {
