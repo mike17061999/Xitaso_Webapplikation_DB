@@ -11,5 +11,6 @@ namespace Xitaso_Webapplikation_DB.Models
         public string name { get; set; }
         public int istBewertung { get; set; }
         public int SollBewertung { get; set; }
+        public int analyseKategorieId { get; set; }
     }
 }
