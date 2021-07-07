@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Xitaso_Webapplikation_DB.Models;
 using Newtonsoft.Json;
 using Xitaso_Webapplikation_DB.ViewModels;
+using Xitaso_Webapplikation_DB.Data;
 
 namespace Xitaso_Webapplikation_DB.Controllers
 {
     public class AnalyseController : Controller
     {
-        Boolean created = false;
+        Analyse analyse;
 
         Dictionary<string, double> istData = new Dictionary<string, double>();
         Dictionary<string, double> sollData = new Dictionary<string, double>();
@@ -98,30 +99,22 @@ namespace Xitaso_Webapplikation_DB.Controllers
             
         }
         #endregion
-
         private readonly ApplicationDbContext _db;
-
         public AnalyseController(ApplicationDbContext db)
         {
             _db = db;
         }
         public ActionResult Index(int analyseID)
         {
-            if (!created)
-            {
-                //_db.projecte.where(x => )
-                createExampleModels();
-                created = true;
-            }
+            analyse = _db.Analysen.Where(a => a.Id == analyseID) as Analyse;
+            createExampleModels();
             
             diagramData();
             string jsonIst = JsonConvert.SerializeObject(istData, Formatting.Indented);
             string jsonSoll = JsonConvert.SerializeObject(sollData, Formatting.Indented);
 
 
-            
-
-            return View(new AnalyseViewModel(istData, sollData, analyse1, jsonIst, jsonSoll));
+            return View(new AnalyseViewModel(istData, sollData, analyse, jsonIst, jsonSoll));
 
         }
         public ActionResult Create()
@@ -134,7 +127,6 @@ namespace Xitaso_Webapplikation_DB.Controllers
         public ActionResult Post(Analyse anlyse)
         {
             //Code um neue Analyse in die Datenbank einzufügen
-            created = true;
             analyse1.name = anlyse.name;
             return RedirectToAction("Index", "Analyse");
 
@@ -150,22 +142,22 @@ namespace Xitaso_Webapplikation_DB.Controllers
             Dictionary<string, double> istDataJSON = new Dictionary<string, double>();
             Dictionary<string, double> sollDataJSON = new Dictionary<string, double>();
 
-            for (int i = 0; i < analyse1.analysekategories.Count(); i++)
+            for (int i = 0; i < analyse.analysekategories.Count(); i++)
             {
-                string categoryName = analyse1.analysekategories[i].name;
+                string categoryName = analyse.analysekategories[i].name;
                 List<int> istValuesList = new List<int>();
                 List<int> sollValuesList = new List<int>();
 
                 //Loop für Ist-Bewertung
-                for (int j = 0; j < analyse1.analysekategories[i].questions.Count(); j++)
+                for (int j = 0; j < analyse.analysekategories[i].questions.Count(); j++)
                 {
-                    istValuesList.Add(analyse1.analysekategories[i].questions[j].istBewertung);
+                    istValuesList.Add(analyse.analysekategories[i].questions[j].istBewertung);
                 }
 
                 //Loop für Soll-Bewertung
-                for (int j = 0; j < analyse1.analysekategories[i].questions.Count(); j++)
+                for (int j = 0; j < analyse.analysekategories[i].questions.Count(); j++)
                 {
-                    sollValuesList.Add(analyse1.analysekategories[i].questions[j].SollBewertung);
+                    sollValuesList.Add(analyse.analysekategories[i].questions[j].SollBewertung);
                 }
 
                 double istMean = istValuesList.Average();
