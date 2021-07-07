@@ -88,6 +88,18 @@ namespace Xitaso_Webapplikation_DB.Controllers
         }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // POST-Create
+        public IActionResult EditProject(int id)
+        {
+            var project = _db.Projekte.SingleOrDefault(c => c.Id == id);
+            if (project == null)
+                //abbruch
+            //_db.Projekte.Add(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -99,7 +111,6 @@ namespace Xitaso_Webapplikation_DB.Controllers
             _db.Projekte.Add(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
-
         }
 
     }

@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
         <div class="col-5">
             <h2>@ViewBag.Title</h2>
-            <form>
+            <form asp-action="EditProject" asp-controller="Projekt" method="post">
                 <div class="mb-3">
                     <label for="projectName" class="form-label">Projektname</label>
                     <input class="form-control" type="text" value="Projektname" id="projectName" />
