@@ -1,6 +1,6 @@
-﻿using Xitaso_Webapplikation.Data;
-using Xitaso_Webapplikation.Models;
-using Xitaso_Webapplikation.ViewModels;
+﻿using Xitaso_Webapplikation_DB.Data;
+using Xitaso_Webapplikation_DB.Models;
+using Xitaso_Webapplikation_DB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Xitaso_Webapplikation.Controllers
+namespace Xitaso_Webapplikation_DB.Controllers
 {
     public class ProjektController : Controller
     {
@@ -72,8 +72,8 @@ namespace Xitaso_Webapplikation.Controllers
         public IActionResult Index()
         {
             createExampleModels();
-            IEnumerable<Projekt> objList = _db.Projekte;
-            return View(new ProjektDashboardViewModel(projects));
+            List<Projekt> objList = _db.Projekte.ToList();
+            return View(new ProjektDashboardViewModel(objList));
         }
 
         public IActionResult Edit()
@@ -92,7 +92,7 @@ namespace Xitaso_Webapplikation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST-Create
-        public IActionResult Create(Projekt obj)
+        public IActionResult CreateProject(Projekt obj)
         {
             _db.Projekte.Add(obj);
             _db.SaveChanges();

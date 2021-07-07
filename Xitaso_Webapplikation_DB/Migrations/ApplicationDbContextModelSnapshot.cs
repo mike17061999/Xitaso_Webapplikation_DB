@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Xitaso_Webapplikation.Data;
+using Xitaso_Webapplikation_DB.Data;
 
 namespace Xitaso_Webapplikation_DB.Migrations
 {

@@ -5,7 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace Xitaso_Webapplikation.Models
+namespace Xitaso_Webapplikation_DB.Models
 {
     public class Projekt
     {
