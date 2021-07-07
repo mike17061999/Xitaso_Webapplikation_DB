@@ -151,7 +151,13 @@ namespace Xitaso_Webapplikation_DB.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        
+        public IActionResult deleteProject(int projectID)
+        {
+            _db.Remove(_db.Projekte.Single(a => a.Id == projectID));
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
 
