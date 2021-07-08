@@ -97,7 +97,7 @@ namespace Xitaso_Webapplikation.Controllers
             
         }
         #endregion
-        public ActionResult Index(int analyseID)
+        public ActionResult Index(int id)
         {
             if (!created)
             {
