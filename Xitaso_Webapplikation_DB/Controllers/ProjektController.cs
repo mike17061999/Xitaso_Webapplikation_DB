@@ -96,17 +96,17 @@ namespace Xitaso_Webapplikation_DB.Controllers
                                         questionListTemp.Add(question);
                                     }
                                 }
-                                analysiscategory.questions = questionListTemp;
+                                analysiscategory.questions = new List<Frage>(questionListTemp);
                                 questionListTemp.Clear();
                                 analysiscategoryListTemp.Add(analysiscategory);
                             }
                         }
-                        analyses.analysekategories = analysiscategoryListTemp;
+                        analyses.analysekategories = new List<Analysekategorie>(analysiscategoryListTemp);
                         analysiscategoryListTemp.Clear();
                         analysisListTemp.Add(analyses);
                     }
                 }
-                project.analysis = analysisListTemp;
+                project.analysis = new List<Analyse>(analysisListTemp);
                 analysisListTemp.Clear();
             }
 
