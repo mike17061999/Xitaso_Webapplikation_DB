@@ -13,7 +13,7 @@ namespace Xitaso_Webapplikation_DB.Controllers
 {
     public class AnalyseController : Controller
     {
-        Analyse analyse;
+        public Analyse analyse = new Analyse();
 
         Dictionary<string, double> istData = new Dictionary<string, double>();
         Dictionary<string, double> sollData = new Dictionary<string, double>();
@@ -106,7 +106,8 @@ namespace Xitaso_Webapplikation_DB.Controllers
         }
         public ActionResult Index(int id)
         {
-            analyse = _db.Analysen.Where(a => a.Id == id) as Analyse;
+            //analyse = _db.Analysen.Where(a => a.Id == id) as Analyse;
+            analyse = _db.Analysen.Where(a => a.Id == id).FirstOrDefault();
             createExampleModels();
             
             diagramData();
