@@ -99,7 +99,7 @@ namespace Xitaso_Webapplikation_DB.Controllers
                                 analysiscategory.questions = questionListTemp;
                                 questionListTemp.Clear();
                                 analysiscategoryListTemp.Add(analysiscategory);
-                            }   
+                            }
                         }
                         analyses.analysekategories = analysiscategoryListTemp;
                         analysiscategoryListTemp.Clear();
@@ -109,9 +109,9 @@ namespace Xitaso_Webapplikation_DB.Controllers
                 project.analysis = analysisListTemp;
                 analysisListTemp.Clear();
             }
-            
-            
-            
+
+
+
             return View(new ProjektDashboardViewModel(projectList));
         }
 
@@ -135,8 +135,8 @@ namespace Xitaso_Webapplikation_DB.Controllers
             var project = _db.Projekte.SingleOrDefault(c => c.Id == id);
             if (project == null)
                 //abbruch
-            //_db.Projekte.Add(obj);
-            _db.SaveChanges();
+                //_db.Projekte.Add(obj);
+                _db.SaveChanges();
             return RedirectToAction("Index");
         }
 

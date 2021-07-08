@@ -17,6 +17,8 @@ namespace Xitaso_Webapplikation_DB.ViewModels
         {
             Projekte = _Projekte;
         }
-
+        public CreateAnalyseViewModel()
+        {
+        }
     }
 }

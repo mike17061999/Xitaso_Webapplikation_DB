@@ -11,16 +11,21 @@
     <div class="row justify-content-center">
         <div class="col-5">
             <h2>@ViewBag.Title</h2>
-            <form asp-action="CreateProject" asp-controller="Projekt" method="post">
+            <form asp-action="CreateAnalysis" asp-controller="Analyse" method="post">
                 <div class="form-group col-md-4">
+                    @*
                     <label for="projektAuswahl">Projekt</label>
                     <select id="projektAuswahl" class="form-control">
-                        @for(int i = 0; i < Model.Projekte.Count(); i++)
+                        @for (int i = 0; i < Model.Projekte.Count(); i++)
                         {
-                        <option asp-for="projectName" value="@Model.Projekte[i].Id">@Model.Projekte[i].name</option>
-                           }
-                            
-                    </select>
+                            <option asp-for="Analyse.projectId" value="@Model.Projekte[i].Id">@Model.Projekte[i].name</option>
+                        }
+                        *@
+                        <div class = "form-group">
+                            @Html.LabelFor(m => m.Analyse.projectId)
+                            @Html.DropDownListFor(m => m.Analyse.projectId, new SelectList(Model.Projekte, "Id", "name"), "Wähle Projekt", new {@class = "form-control" })
+                        </div>
+                    @*</select>*@
                 </div>
                 <div class="mb-3">
                     <label for="analysisName" class="form-label">Analysenname</label>
@@ -30,7 +35,7 @@
                     <label for="comment">Analysen-Kommentar</label>
                     <textarea asp-for="Analyse.comment" class="form-control" id="comment" rows="5"></textarea>
                 </div>
-
+                @Html.HiddenFor(m => m.Projekte)
                 <button type="submit" class="btn btn-primary">Speichern</button>
             </form>
 

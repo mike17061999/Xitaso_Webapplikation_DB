@@ -169,18 +169,27 @@ namespace Xitaso_Webapplikation_DB.Controllers
             }
 
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //// POST-Create
+        //public IActionResult CreateAnalysis(CreateAnalyseViewModel obj)
+        //{
+        //    Analyse analyse = new Analyse();
+        //    analyse.name = obj.Analyse.name;
+        //    analyse.comment = obj.Analyse.comment;
+        //    analyse.projectId = obj.Analyse.projectId;
+        //    _db.Analysen.Add(analyse);
+        //    _db.SaveChanges();
+        //    return RedirectToAction("Index", "Projekt");
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         // POST-Create
-        public IActionResult CreateAnalysis(CreateAnalyseViewModel obj)
+        public IActionResult CreateAnalysis(Analyse analyse)
         {
-            Analyse analyse = new Analyse();
-            analyse.name = obj.Analyse.name;
-            analyse.comment = obj.Analyse.comment;
-            analyse.projectId = obj.Analyse.projectId;
             _db.Analysen.Add(analyse);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Projekt");
         }
     }
    
