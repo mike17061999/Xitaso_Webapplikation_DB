@@ -152,9 +152,9 @@ namespace Xitaso_Webapplikation_DB.Controllers
             return RedirectToAction("Index");
         }
         
-        public IActionResult deleteProject(int projectID)
+        public IActionResult deleteProject(int id)
         {
-            _db.Remove(_db.Projekte.Single(a => a.Id == projectID));
+            _db.Remove(_db.Projekte.Single(a => a.Id == id));
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

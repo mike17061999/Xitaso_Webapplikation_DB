@@ -104,9 +104,9 @@ namespace Xitaso_Webapplikation_DB.Controllers
         {
             _db = db;
         }
-        public ActionResult Index(int analyseID)
+        public ActionResult Index(int id)
         {
-            analyse = _db.Analysen.Where(a => a.Id == analyseID) as Analyse;
+            analyse = _db.Analysen.Where(a => a.Id == id) as Analyse;
             createExampleModels();
             
             diagramData();
